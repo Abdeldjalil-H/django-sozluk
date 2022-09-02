@@ -7,6 +7,8 @@
         <button type="button" class="btn add-code insert" data-type="swh" title="{% trans "see this (ironic)" %}">&#8727;</button>
         <button type="button" class="btn add-code insert" data-type="spoiler" title="{% trans "spoil something" %}">{% trans "--spoiler--" %}</button>
         <button type="button" class="btn add-code" title="{% trans "link to external sites" %}" id="insert_link">http://</button>
+        <button type="button" class="btn add-code insert" data-type="asciinema" title="{% trans "add command line record" %}" id="insert_asciinema">asciinema</button>
+        <button type="button" class="btn add-code insert" data-type="command" title="{% trans "add one line command" %}" id="insert_command">command</button>
     </div>
     {% if not user.is_novice %}
         <button type="button" class="btn add-code" title="{% trans "add some nice images" %}" id="insert_image">{% trans "image" context "editor" %}</button>

@@ -51,7 +51,7 @@ Handle(document, "click", event => {
     }
 })
 
-function deleteImage (slug) {
+function deleteImage(slug) {
     return gqlc({
         query: "mutation($slug:String!){image{delete(slug:$slug){feedback}}}",
         variables: { slug }

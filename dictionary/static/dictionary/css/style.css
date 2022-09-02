@@ -1791,3 +1791,31 @@ nav.mobile-nav > a .user-badge {
         color: #fff;
     }
 }
+
+.asciicast {
+    height: 0!important;
+    margin: 0!important;
+}
+.asciicast.visible {
+    margin: unset!important;
+    height: auto!important;
+}
+pre[class*="language-"] {
+    padding: 8px!important;
+    position: relative;
+    font-family: 'SF Mono Regular' monospace 'Menlo' 'Courier New';
+}
+pre[class*="language-"] .copy-btn {
+    position: absolute;
+    right: 8px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 3px 4px;
+    display: none;
+}
+
+pre[class*="language-"]:hover .copy-btn {
+    display: inline-block;
+}

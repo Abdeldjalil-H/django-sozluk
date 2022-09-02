@@ -111,6 +111,12 @@
                                     </svg>
                                     {% trans "acquaintances" %}
                                 </a>
+                                <a class="dropdown-item" href="{{ topic.get_absolute_url }}?a=commands">
+                                    <svg fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                        <use href="#command"></use>
+                                    </svg>
+                                    {% trans "commands" %}
+                                </a>
                             {% endif %}
 
                             <a class="dropdown-item px-3">

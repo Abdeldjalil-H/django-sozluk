@@ -4,7 +4,8 @@ import { Handle, Handler, one } from "./utils"
 import { deleteImage } from "./image"
 import Dropzone from "dropzone"
 
-function insertAtCaret (el, insertValue) {
+
+function insertAtCaret(el, insertValue) {
     const startPos = el.selectionStart
     if (startPos) {
         const endPos = el.selectionEnd
@@ -20,7 +21,7 @@ function insertAtCaret (el, insertValue) {
     }
 }
 
-function insertMeta (type) {
+function insertMeta(type) {
     let fmt
 
     switch (type) {
@@ -38,12 +39,18 @@ function insertMeta (type) {
             fmt = [gettext("what to write between spoiler tags?"), text => `--\`${spoiler}\`--\n${text}\n--\`${spoiler}\`--`]
             break
         }
+        case "asciinema":
+            fmt = [gettext("asciinema id:"), text => `[asciinema ${text}]\n`]
+            break
+        case "command":
+            fmt = [gettext("command:"), text => `[cmd ${text}]\n`]
+            break
     }
 
     return { label: fmt[0], format: fmt[1] }
 }
 
-function replaceText (textarea, type) {
+function replaceText(textarea, type) {
     const start = textarea.selectionStart
     const finish = textarea.selectionEnd
     const allText = textarea.value
@@ -124,11 +131,11 @@ Dropzone.options.userImageUpload = {
     dictUploadCanceled: gettext("Upload canceled."),
     dictCancelUploadConfirmation: gettext("Are you sure?"),
 
-    success (file, response) {
+    success(file, response) {
         insertAtCaret(userContent, `(${pgettext("editor", "image")}: ${response.slug})`)
     },
 
-    removedfile (file) {
+    removedfile(file) {
         file.previewElement.remove()
         const slug = JSON.parse(file.xhr.response).slug
         userContent.value = userContent.value.replace(new RegExp(`\\(${pgettext("editor", "image")}: ${slug}\\)`, "g"), "")

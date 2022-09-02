@@ -37,7 +37,7 @@ from dictionary.models import (
     Topic,
     TopicFollowing,
 )
-from dictionary.templatetags.filters import IMAGE_REGEX, RE_TOPIC_CHARSET, SEE_EXPR
+from dictionary.templatetags.filters import IMAGE_REGEX, RE_TOPIC_CHARSET, SEE_EXPR, COMMAND_REGEX, ASCIINEMA_REGEX
 from dictionary.utils import RE_WEBURL, i18n_lower, proceed_or_404, time_threshold
 from dictionary.utils.decorators import cached_context
 from dictionary.utils.managers import TopicListManager, entry_prefetch
@@ -80,7 +80,6 @@ class Index(ListView):
         queryset = Entry.objects.filter(pk__in=self.get_pk_set()).order_by()
         return entry_prefetch(queryset, self.request.user)
 
-    @method_decorator(cached_context(timeout=page_timeout, prefix="index_view"))
     def get_pk_set(self):
         records = getattr(self, settings.INDEX_TYPE)()
         return list(records)
@@ -346,6 +345,7 @@ class TopicEntryList(EntryCreateMixin, IntegratedFormMixin, ListView):
         "acquaintances",
         "answered",
         "images",
+        "commands",
     )
     """
     List of filtering modes that are used to filter out entries. User passes
@@ -353,7 +353,7 @@ class TopicEntryList(EntryCreateMixin, IntegratedFormMixin, ListView):
     only today's entries.
     """
 
-    login_required_modes = ("novices", "following", "recent", "acquaintances")
+    login_required_modes = ("novices", "following", "recent", "acquaintances", "commands")
     """These filtering modes require user authentication."""
 
     redirect = False
@@ -467,6 +467,9 @@ class TopicEntryList(EntryCreateMixin, IntegratedFormMixin, ListView):
     def images(self):
         return self.topic.entries.filter(content__regex=IMAGE_REGEX)
 
+    def commands(self):
+        return self.topic.entries.filter(content__regex=fr'{COMMAND_REGEX}|{ASCIINEMA_REGEX}')
+    
     def get_queryset(self):
         """Filter queryset by self.view_mode"""
         queryset = None
