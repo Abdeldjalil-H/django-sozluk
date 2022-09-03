@@ -43,7 +43,7 @@ function insertMeta(type) {
             fmt = [gettext("asciinema id:"), text => `[asciinema ${text}]\n`]
             break
         case "command":
-            fmt = [gettext("command:"), text => `[cmd ${text}]\n`]
+            fmt = [gettext("command:"), text => `[cmd ${text}]`]
             break
     }
 

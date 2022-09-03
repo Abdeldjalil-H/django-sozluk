@@ -1803,17 +1803,18 @@ nav.mobile-nav > a .user-badge {
 pre[class*="language-"] {
     padding: 8px!important;
     position: relative;
-    font-family: 'SF Mono Regular' monospace 'Menlo' 'Courier New';
+    font-family: 'SF Mono Regular', monospace, 'Menlo', 'Courier New'!important;
 }
 pre[class*="language-"] .copy-btn {
-    position: absolute;
-    right: 8px;
+    position: fixed;
+    right: 0;
     outline: none;
-    border: none;
+    border: 1px;
     border-radius: 8px;
     font-size: 14px;
     padding: 3px 4px;
     display: none;
+    transform: translateX(-100%);
 }
 
 pre[class*="language-"]:hover .copy-btn {

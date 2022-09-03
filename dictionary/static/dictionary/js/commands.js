@@ -1,12 +1,12 @@
 /* global gettext */
 
-import { Handle, Handler, template } from "./utils"
+import { Handler, template, notify } from "./utils"
 
 const showRecordErrorMessage = () => {
     notify(gettext("command line record could not be displayed. it might have been deleted."), "error", 2200)
 }
 
-Handle("a[data-asciinema]", "click", event => {
+Handler("a[data-asciinema]", "click", event => {
     const self = event.target
     if (self.hasAttribute("data-broken")) {
         showRecordErrorMessage()
@@ -52,4 +52,12 @@ Handler(".copy-btn", "click", event => {
     el.select()
     document.execCommand("copy")
     document.body.removeChild(el)
+    notify(gettext("copied to clipboard"))
+
+    // copy using clipboard api
+    // const self = event.target
+    // const text = self.previousElementSibling.innerText
+    // navigator.clipboard.writeText(text).then(_ => {
+    //     notify(gettext("copied to clipboard"))
+    // })
 })
