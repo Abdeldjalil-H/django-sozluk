@@ -48,7 +48,7 @@ IMAGE_REGEX = fr"\({IMAGE_EXPR}: ([a-z0-9]{{8}})\)"
 COMMAND_EXPR = r"(?:cmd)"
 ASCIINEMA_EXPR = r"(?:asciinema)"
 ASCIINEMA_REGEX = fr"\[{ASCIINEMA_EXPR} (.*)\]"
-COMMAND_REGEX = fr"\[{COMMAND_EXPR} (.*)\]"
+COMMAND_REGEX = fr"\[{COMMAND_EXPR} (.*)\]\s?\n?"
 # Translators: Short for "also see this", used in entry editor.
 SEE = pgettext_lazy("editor", "see")
 SEARCH = pgettext_lazy("editor", "search")
@@ -130,7 +130,7 @@ def formatted(raw_entry):
         (ASCIINEMA_REGEX, fr'<a role="button" tabindex="0" data-asciinema="\1" aria-expanded="false">{ASCIINEMA}</a><script src="https://asciinema.org/a/\1.js?preload=0" id="asciicast-\1" async></script>'), 
         
         # Command
-        (COMMAND_REGEX, fr'<pre class="language-bash"><code class="language-bash">\1</code><button class="copy-btn">copy</button></pre>'),
+        (COMMAND_REGEX, fr'<div class="code-container"><pre class="language-bash"><code class="language-bash">\1</code></pre><button class="copy-btn">copy</button></div>'),
         # Links. Order matters. In order to hinder clash between labelled and linkified:
         # Find links with label, then encapsulate them in anchor tag, which adds " character before the
         # link. Then we find all other links which don't have " at the start.

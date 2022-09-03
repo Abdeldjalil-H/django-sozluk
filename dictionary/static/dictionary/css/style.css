@@ -1805,18 +1805,22 @@ pre[class*="language-"] {
     position: relative;
     font-family: 'SF Mono Regular', monospace, 'Menlo', 'Courier New'!important;
 }
-pre[class*="language-"] .copy-btn {
-    position: fixed;
-    right: 0;
+.code-container .copy-btn {
+    position: absolute;
+    left: calc(100% - 50px);
+    z-index: 10;
     outline: none;
     border: 1px;
     border-radius: 8px;
     font-size: 14px;
-    padding: 3px 4px;
+    padding: 3px;
     display: none;
-    transform: translateX(-100%);
+    top: 7px;
+}
+.code-container {
+    position: relative;
 }
 
-pre[class*="language-"]:hover .copy-btn {
+.code-container:hover .copy-btn {
     display: inline-block;
 }
