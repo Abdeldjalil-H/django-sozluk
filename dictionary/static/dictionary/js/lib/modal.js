@@ -7,7 +7,7 @@ class Modal {
         this.lead = modal.querySelector(".lead")
 
         modal.addEventListener("click", event => {
-            if (!event.target.closest(".modal-content") || event.target.closest("[data-dismiss=modal]")) {
+            if (event.target.closest("[data-dismiss=modal]")) {
                 this.hide()
             }
         })

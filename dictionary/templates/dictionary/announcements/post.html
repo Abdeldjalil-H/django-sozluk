@@ -13,7 +13,7 @@
         {% if post.discussion %}
             <a href="{{ post.discussion.get_absolute_url }}">{{ post.discussion.title }} ({{ post.discussion.entry_count }})</a>
         {% endif %}
-        <time datetime="{{ post.date_created|date:"c" }}" class="ml-auto">
+        <time datetime="{{ post.date_created|date:'c' }}" data-edit-date="{{ post.date_edited|date:'c' }}" class="ml-auto date">
             <a href="{{ post.get_absolute_url }}">{{ post.date_created|entrydate:post.date_edited }}</a>
         </time>
     </footer>

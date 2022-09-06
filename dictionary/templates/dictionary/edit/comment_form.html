@@ -19,7 +19,7 @@
 
     <div class="d-flex">
         <a href="{{ entry.get_absolute_url }}" class="ml-auto">
-            <time class="ml-auto">{{ entry.date_created|entrydate:entry.date_edited }}</time>
+            <time class="ml-auto date" datetime="{{entry.date_created|date:'c'}}" data-edit-date="{{ entry.date_edited|date:'c' }}"></time>
         </a>
     </div>
     <section class="user-content my-4">
@@ -36,7 +36,7 @@
 
                 <div class="d-flex align-items-center">
                     {% if updating %}
-                        <button name="delete" value="true" onclick="return confirm('{% trans "Are you sure?" %}');" type="submit" class="btn btn-sm">{% trans "delete" %}</button>
+                        <button name="delete" value="true" onclick="return confirm(`{% trans 'Are you sure?'' %}`);" type="submit" class="btn btn-sm">{% trans "delete" %}</button>
                     {% endif %}
                     <button type="submit" class="btn btn-django ml-auto">{{ updating|yesno:_("update comment,comment") }}</button>
                 </div>

@@ -175,3 +175,30 @@ export {
     isValidText, updateQueryStringParameter, toggleText,
     createPopper, userIsAuthenticated, lang
 }
+const formatTime = (date) => (lang === "en" ? 
+    date.toLocaleString('en-US', {timeStyle: "short"}).toLowerCase() : date.toLocaleString('tr-TR', {timeStyle:'short'}))
+const formatDate = (date) => (lang === "en" ?
+    date.toLocaleString('en-US', {dateStyle: "medium"}) : date.toLocaleString('tr-TR', {dateStyle:'short'}))
+
+function formatDateTime(date) {
+    date = new Date(date)
+    return `${formatDate(date)} ${formatTime(date)}`
+}
+
+function entryDate(created, edited) {
+    created = new Date(created)
+    const [d1, t1] = [formatDate(created), formatTime(created)]
+    if (!edited) return `${d1} ${t1}`
+    edited = new Date(edited)
+    const [d2, t2] = [formatDate(edited), formatTime(edited)]
+    return d1 === d2 ? `${d1} ${t1} ~ ${t2}` : `${d1} ${t1} ~ ${d2} ${t2}`
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".date:not(.date-month)").forEach(time => 
+        time.innerText = entryDate(time.dateTime, time.dataset.editDate)
+    )
+    document.querySelectorAll(".code-container pre code").forEach(code => {
+        code.textContent = code.innerHTML.replaceAll("<br>", "\n")
+    })
+})

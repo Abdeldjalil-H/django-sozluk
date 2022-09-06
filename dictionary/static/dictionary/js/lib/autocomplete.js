@@ -289,7 +289,10 @@ if (inEditorSearch) {
         silent: true,
         highlight: true,
         cache: true,
-        lookup: fullLookup
+        lookup(name) {
+            if (inEditorSearch.dataset.noComplete == "true") return Promise.resolve([]);
+            return fullLookup(name)
+        },
     })
 }
 

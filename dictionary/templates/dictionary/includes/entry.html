@@ -1,7 +1,6 @@
 {% load filters functions i18n %}
 <li data-id="{{ entry.pk }}" {% print_entry_class %}{% if show_title == "yes" %} data-topic="{{ entry.topic.title }}"{% endif %}>
     <section>
-    {% with time=entry.date_created|entrydate:entry.date_edited %}
         <header class="entry-individual">
             {% if show_title == "yes" %}
                 <h2><a href="{{ entry.topic.get_absolute_url }}">{{ entry.topic.title }}</a></h2>
@@ -19,9 +18,8 @@
                         <use href="#more"></use>
                     </svg>
                 </a>
-
                 <a href="{{ entry.get_absolute_url }}" class="permalink">
-                    <time datetime="{{ entry.date_created|date:"c" }}">{{ time }}</time>
+                    <time datetime="{{ entry.date_created|date:'c' }}" data-edit-date="{{ entry.date_edited|date:'c' }}" class="date"></time>
                 </a>
                 <div class="dropdown-menu entry-actions icon-assisted"></div>
             </div>
@@ -83,7 +81,7 @@
 
             <div class="meta">
                 <a href="{{ entry.get_absolute_url }}" class="permalink">
-                    <time datetime="{{ entry.date_created|date:"c" }}">{{ time }}</time>
+                    <time datetime="{{ entry.date_created|date:'c' }}" data-edit-date="{{ entry.date_edited|date:'c' }}" class="date"></time>
                 </a>
                 {% if not entry.author.is_private %}
                     <a class="username" href="{{ entry.author.get_absolute_url }}">{{ entry.author.username }}</a>
@@ -99,7 +97,6 @@
                 <div class="dropdown-menu entry-actions icon-assisted"></div>
             </div>
         </footer>
-    {% endwith %}
     </section>
 
 {% with comments=entry.comments.all %}
@@ -130,7 +127,7 @@
                                     <a class="mr-2" href="{% url 'comment_update' pk=comment.pk %}">{% trans "edit" %}</a>
                                 {% endif %}
                                 <a href="{{ comment.get_absolute_url }}">
-                                    <time datetime="{{ comment.date_created|date:"c" }}">{{ comment.date_created|entrydate:comment.date_edited }}</time>
+                                    <time datetime="{{ comment.date_created|date:'c' }}" data-edit-date="comment.date_edited|date:'c'" class="date"></time>
                                 </a>
                             </div>
                         </footer>

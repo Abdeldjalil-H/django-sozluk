@@ -37,7 +37,14 @@ from dictionary.models import (
     Topic,
     TopicFollowing,
 )
-from dictionary.templatetags.filters import IMAGE_REGEX, RE_TOPIC_CHARSET, SEE_EXPR, COMMAND_REGEX, ASCIINEMA_REGEX
+from dictionary.templatetags.filters import (
+    IMAGE_REGEX, 
+    RE_TOPIC_CHARSET, 
+    SEE_EXPR, 
+    COMMAND_REGEX, 
+    ASCIINEMA_REGEX,
+    CMD_BLOCK_REGEX,
+)
 from dictionary.utils import RE_WEBURL, i18n_lower, proceed_or_404, time_threshold
 from dictionary.utils.decorators import cached_context
 from dictionary.utils.managers import TopicListManager, entry_prefetch
@@ -468,7 +475,7 @@ class TopicEntryList(EntryCreateMixin, IntegratedFormMixin, ListView):
         return self.topic.entries.filter(content__regex=IMAGE_REGEX)
 
     def commands(self):
-        return self.topic.entries.filter(content__regex=fr'{COMMAND_REGEX}|{ASCIINEMA_REGEX}')
+        return self.topic.entries.filter(content__regex=fr'{COMMAND_REGEX}|{CMD_BLOCK_REGEX}|{ASCIINEMA_REGEX}')
     
     def get_queryset(self):
         """Filter queryset by self.view_mode"""

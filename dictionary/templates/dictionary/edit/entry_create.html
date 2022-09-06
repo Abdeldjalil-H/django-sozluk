@@ -48,7 +48,7 @@
                     <div>
                         <button type="button" class="btn draft-async px-0">{% trans "keep this as draft" %}</button>
                     </div>
-                    <button type="submit" class="btn btn-django-link"{% if user.is_suspended %} title="{% trans "you lack the required permissions." %}" disabled{% endif %}>{% trans "publish" %}</button>
+                    <button type="submit" class="btn btn-django-link"{% if user.is_suspended %} title="{% trans 'you lack the required permissions.' %}" disabled{% endif %}>{% trans "publish" %}</button>
                 </div>
             </form>
         </section>

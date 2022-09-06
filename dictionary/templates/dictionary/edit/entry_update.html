@@ -39,7 +39,10 @@
                         {% endif %}
                         <button type="button" data-target-entry="{{ entry.id }}" class="btn btn-django-link fs-90 delete-entry-redirect">{% trans "delete" %}</button>
                     </div>
-                    <button type="submit" class="btn btn-django-link"{% if user.is_suspended or entry.topic.is_banned %} title="{% trans "you lack the required permissions." %}" disabled{% endif %}>{% trans "publish" %}</button>
+                    <div class="d-flex">
+                        <a href="{% url 'entry-permalink' entry.pk %}" role="btn" class="btn px-0 mr-3">{% trans "cancel" %}</a>
+                        <button type="submit" class="btn btn-django-link"{% if user.is_suspended or entry.topic.is_banned %} title="{% trans 'you lack the required permissions.' %}" disabled{% endif %}>{% trans "publish" %}</button>
+                    </div>
                 </div>
             </form>
         </section>

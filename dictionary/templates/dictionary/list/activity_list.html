@@ -31,7 +31,7 @@
                 {% if user.unread_topic_count.topics > 0 %}
                     <form method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm" onclick="return confirm('{% trans "Are you sure?" %}')">{% trans "mark all topics as read" %}</button>
+                        <button type="submit" class="btn btn-sm" onclick="return confirm(`{% trans 'Are you sure?' %}`)">{% trans "mark all topics as read" %}</button>
                     </form>
                 {% endif %}
             </small>
@@ -39,7 +39,7 @@
             <ul id="topic-list-standalone" class="list-group topic-list">
                 {% for topic in topics %}
                     <li class="list-group-item{% if not topic.is_read %} active{% endif %}">
-                        <a href="{{ topic.get_absolute_url }}?a=following&d={{ topic.last_read_at|date:"U" }}">
+                        <a href="{{ topic.get_absolute_url }}?a=following&d={{ topic.last_read_at|date:'U' }}">
                             <span>{{ topic.title }}</span>
                             {% if not topic.is_read %}
                                 <small class="total_entries">{{ topic.count }}</small>

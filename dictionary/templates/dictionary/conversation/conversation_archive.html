@@ -41,7 +41,7 @@
                 <li class="bubble {% if message.sender__username == user.username %}sent{% else %}received{% endif %}">
                     <p class="text-formatted">{{ message.body|formatted|linebreaksbr }}</p>
                     {# Translators: Archived conversation timestamp #}
-                    <span class="date-info"><time>{{ message.sent_at|strdate|date:_("M j, Y g:i a") }}</time></span>
+                    <span class="date-info date"><time>{{ message.sent_at|strdate|date:_("M j, Y g:i a") }}</time></span>
                 </li>
             {% endfor %}
         {% endwith %}

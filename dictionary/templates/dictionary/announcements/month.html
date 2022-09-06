@@ -4,5 +4,5 @@
 {% block title %}{% blocktrans with date_month=month|date:"F Y"|lower %}{{ date_month }} announcements{% endblocktrans %}{% endblock %}
 {% block crumb %}
     <span class="mx-1">&raquo;</span>
-    <span class="fs-90">{% blocktrans with date_month=month|date:"F Y"|lower %}{{ date_month }} announcements{% endblocktrans %}</span>
+    <span class="fs-90 date date-month">{% blocktrans with date_month=month|date:"F Y"|lower %}{{ date_month }} announcements{% endblocktrans %}</span>
 {% endblock %}

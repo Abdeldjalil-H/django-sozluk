@@ -1793,12 +1793,16 @@ nav.mobile-nav > a .user-badge {
 }
 
 .asciicast {
+    display: inline-block!important;
     height: 0!important;
+    width: 0!important;
     margin: 0!important;
 }
 .asciicast.visible {
     margin: unset!important;
     height: auto!important;
+    width: auto!important;
+    display: block!important;
 }
 pre[class*="language-"] {
     padding: 8px!important;
@@ -1823,4 +1827,12 @@ pre[class*="language-"] {
 
 .code-container:hover .copy-btn {
     display: inline-block;
+}
+
+.inline-cmd {
+    background: none!important;
+    color: var(--primary-light);
+}
+body.dark .inline-cmd {
+    color: #2BFFA6;
 }

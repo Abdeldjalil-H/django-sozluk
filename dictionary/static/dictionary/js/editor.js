@@ -40,14 +40,17 @@ function insertMeta(type) {
             break
         }
         case "asciinema":
-            fmt = [gettext("asciinema id:"), text => `[asciinema ${text}]\n`]
+            fmt = [gettext("asciinema id:"), text => `[asciinema ${text}]`, true]
             break
         case "command":
-            fmt = [gettext("command:"), text => `[cmd ${text}]`]
+            fmt = [gettext("command:"), text => `[cmd ${text}]`, true]
+            break
+        case "cmd-block":
+            fmt = [gettext("block of commands:"), text => `[cmd-block ${text}]\n`, true]
             break
     }
 
-    return { label: fmt[0], format: fmt[1] }
+    return { label: fmt[0], format: fmt[1], noComplete: fmt[2] }
 }
 
 function replaceText(textarea, type) {
@@ -75,6 +78,7 @@ let meta
 let label
 const doneButton = one("#editor_done")
 const input = one("#editor_input")
+const blockCmdInput = one("#editor_block_cmd_input")
 const modal = one("#editorModal")
 
 if (modal) {
@@ -100,7 +104,8 @@ Handle("button#insert_link", "click", () => {
 })
 
 Handle(doneButton, "click", () => {
-    input.value.trim() && insertAtCaret(userContent, meta.format(input.value.trim()))
+    const content = input.value === "" ? blockCmdInput.value : input.value.trim()
+    return insertAtCaret(userContent, meta.format(content))
 })
 
 Handle(input, "keydown", event => {
@@ -112,7 +117,13 @@ Handler("button.insert", "click", function () {
     if (!replaceText(userContent, type)) {
         meta = insertMeta(type)
         label.textContent = meta.label
+        const isBlock = (type === "cmd-block")
+        console.log(isBlock)
+        input.hidden = isBlock
+        blockCmdInput.hidden = !isBlock
         input.value = ""
+        blockCmdInput.value = ""
+        input.dataset.noComplete = meta.noComplete
         modal._modalInstance.show(null)
     }
 })

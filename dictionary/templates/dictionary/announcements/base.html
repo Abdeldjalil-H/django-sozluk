@@ -28,7 +28,7 @@
             <ul class="list-unstyled">
                 {% for date in date_list %}
                     <li>
-                        <a href="{% url 'announcements-month' year=date.year month=date.month %}">{{ date|date:"F Y" }}</a>
+                        <a href="{% url 'announcements-month' year=date.year month=date.month %}" class="date date-month">{{ date|date:"F Y" }}</a>
                     </li>
                 {% endfor %}
             </ul>
