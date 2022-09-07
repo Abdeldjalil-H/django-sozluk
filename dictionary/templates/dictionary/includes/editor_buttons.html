@@ -8,8 +8,7 @@
         <button type="button" class="btn add-code insert" data-type="spoiler" title="{% trans 'spoil something' %}">{% trans "--spoiler--" %}</button>
         <button type="button" class="btn add-code" title="{% trans 'link to external sites' %}" id="insert_link">http://</button>
         <button type="button" class="btn add-code insert" data-type="asciinema" title="{% trans 'add command line record' %}" id="insert_asciinema">asciinema</button>
-        <button type="button" class="btn add-code insert" data-type="command" title="{% trans 'add one line command' %}" id="insert_command">cmd</button>
-        <button type="button" class="btn add-code insert" data-type="cmd-block" title="{% trans 'add block of commands' %}" id="insert_block-cmd">block cmd</button>
+        <button type="button" class="btn add-code insert" data-type="cmd" title="{% trans 'add command lines' %}" id="insert_command">cmd</button>
     </div>
     {% if not user.is_novice %}
         <button type="button" class="btn add-code" title="{% trans "add some nice images" %}" id="insert_image">{% trans "image" context "editor" %}</button>
@@ -26,9 +25,19 @@
                     </button>
                 </div>
                 <div class="modal-body py-0">
+                    <div class="d-none justify-content-around" id="cmd-switch-container">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="inline" id="inline-cmd-radio" name="cmd-switch" checked>
+                            <label class="form-check-label" for="inline-cmd-radio">{% trans "inline" %}</label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" value="block" id="block-cmd-radio" name="cmd-switch">
+                            <label class="form-check-label" for="block-cmd-radio">{% trans "block" %}</label>
+                          </div>
+                    </div>
                     <div class="position-relative">
                         <input type="text" class="form-control lead" id="editor_input" style="font-size: 16px">
-                        <textarea id="editor_block_cmd_input" class="form-control lead" style="font-size: 16px" rows="5"></textarea>
+                        <textarea id="editor_block_cmd_input" class="form-control lead" style="font-size: 16px" rows="5" hidden></textarea>
                     </div>
                 </div>
                 <div class="modal-footer border-0">

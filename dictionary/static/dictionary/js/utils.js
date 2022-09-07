@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
         time.innerText = entryDate(time.dateTime, time.dataset.editDate)
     )
     document.querySelectorAll(".code-container pre code").forEach(code => {
-        code.textContent = code.innerHTML.replaceAll("<br>", "\n")
+        code.innerHTML = code.innerHTML.replaceAll("<br>", "\n")
     })
+
 })

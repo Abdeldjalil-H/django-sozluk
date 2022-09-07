@@ -42,11 +42,8 @@ function insertMeta(type) {
         case "asciinema":
             fmt = [gettext("asciinema id:"), text => `[asciinema ${text}]`, true]
             break
-        case "command":
-            fmt = [gettext("command:"), text => `[cmd ${text}]`, true]
-            break
-        case "cmd-block":
-            fmt = [gettext("block of commands:"), text => `[cmd-block ${text}]\n`, true]
+        case "cmd":
+            fmt = [gettext("command:"), text => isBlock ? `[cmd-block ${text}]\n`:  `[cmd ${text}]`, true]
             break
     }
 
@@ -79,8 +76,16 @@ let label
 const doneButton = one("#editor_done")
 const input = one("#editor_input")
 const blockCmdInput = one("#editor_block_cmd_input")
+const switchCmd = one("#cmd-switch-container")
+let isBlock
 const modal = one("#editorModal")
 
+switchCmd.querySelectorAll('input[type="radio"]').forEach(radio => radio.onchange = () => {
+    isBlock = radio.value === "block"
+    blockCmdInput.hidden = !isBlock
+    input.hidden = isBlock
+    isBlock ? blockCmdInput.focus() : input.focus()
+})
 if (modal) {
     label = modal.querySelector("label")
 }
@@ -117,10 +122,11 @@ Handler("button.insert", "click", function () {
     if (!replaceText(userContent, type)) {
         meta = insertMeta(type)
         label.textContent = meta.label
-        const isBlock = (type === "cmd-block")
-        console.log(isBlock)
-        input.hidden = isBlock
-        blockCmdInput.hidden = !isBlock
+        if (type === "cmd") {
+            switchCmd.style.setProperty("display", "flex", "important")
+        } else {
+            switchCmd.style.display = "none"
+        }
         input.value = ""
         blockCmdInput.value = ""
         input.dataset.noComplete = meta.noComplete
