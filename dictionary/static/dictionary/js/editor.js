@@ -79,13 +79,14 @@ const blockCmdInput = one("#editor_block_cmd_input")
 const switchCmd = one("#cmd-switch-container")
 let isBlock
 const modal = one("#editorModal")
-
-switchCmd.querySelectorAll('input[type="radio"]').forEach(radio => radio.onchange = () => {
-    isBlock = radio.value === "block"
-    blockCmdInput.hidden = !isBlock
-    input.hidden = isBlock
-    isBlock ? blockCmdInput.focus() : input.focus()
-})
+if(switchCmd) {
+    switchCmd.querySelectorAll('input[type="radio"]').forEach(radio => radio.onchange = () => {
+        isBlock = radio.value === "block"
+        blockCmdInput.hidden = !isBlock
+        input.hidden = isBlock
+        isBlock ? blockCmdInput.focus() : input.focus()
+    })
+}
 if (modal) {
     label = modal.querySelector("label")
 }
