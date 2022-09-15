@@ -49,8 +49,8 @@ COMMAND_EXPR = r"(?:cmd)"
 CMD_BLOCK_EXPR = r"(?:cmd-block)"
 ASCIINEMA_EXPR = r"(?:asciinema)"
 ASCIINEMA_REGEX = fr"\[{ASCIINEMA_EXPR} (.*)\]"
-COMMAND_REGEX = fr"\[{COMMAND_EXPR} (.*)\]"
-CMD_BLOCK_REGEX = fr"\[{CMD_BLOCK_EXPR}\s?(?:\s*\n)?((.|\n)*)\]\s?\n?"
+COMMAND_REGEX = fr"\[{COMMAND_EXPR} ([^\]]*)\]"
+CMD_BLOCK_REGEX = fr"\[{CMD_BLOCK_EXPR}\s?(?:\s*\n)?([^\]]*)\]\s?\n?"
 # Translators: Short for "also see this", used in entry editor.
 SEE = pgettext_lazy("editor", "see")
 SEARCH = pgettext_lazy("editor", "search")
